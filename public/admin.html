@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#0f7a5a" />
+<title>الإدارة — ختمة القرآن</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: 'Tajawal', system-ui, sans-serif;
+    background: linear-gradient(160deg, #f4ebd5 0%, #e9dcb8 100%);
+    color: #2b2418;
+    min-height: 100vh;
+  }
+  header {
+    background: linear-gradient(135deg, #0f7a5a, #0a5a42);
+    color: #fff; padding: 14px 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
+  }
+  header h1 { margin: 0; font-family: 'Amiri', serif; font-size: 20px; flex: 1; text-align: center; }
+  header a {
+    color: #fff; text-decoration: none; font-size: 13px;
+    background: rgba(255,255,255,.15);
+    padding: 6px 12px; border-radius: 8px;
+  }
+
+  .toptabs {
+    display: flex;
+    background: #0a5a42;
+    padding: 0;
+    position: sticky; top: 56px; z-index: 9;
+  }
+  .toptab {
+    flex: 1; padding: 12px; text-align: center;
+    background: transparent; color: rgba(255,255,255,.7);
+    border: none; font-family: inherit; font-size: 14px;
+    font-weight: 700; cursor: pointer;
+    border-bottom: 3px solid transparent;
+  }
+  .toptab.active { color: #ffd76b; border-bottom-color: #ffd76b; }
+
+  .khatma-chips {
+    display: flex; gap: 6px; overflow-x: auto;
+    padding: 10px 14px;
+    background: #efe5cb;
+    border-bottom: 1px solid #d8cfb5;
+    scrollbar-width: none;
+  }
+  .khatma-chips::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: 0 0 auto;
+    background: #fff;
+    color: #2b2418;
+    border: 1.5px solid #d8cfb5;
+    padding: 7px 14px;
+    border-radius: 18px;
+    font-family: inherit; font-size: 13px;
+    cursor: pointer; white-space: nowrap;
+  }
+  .chip.active { background: #0f7a5a; color: #fff; border-color: #0f7a5a; font-weight: 700; }
+  .chip.new { background: #fff7e0; border-color: #e0b84a; color: #8a6a1a; font-weight: 700; }
+
+  .card {
+    margin: 14px; padding: 14px;
+    background: #fff; border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  .card h2 {
+    margin: 0 0 12px; font-size: 17px;
+    color: #0f7a5a; font-family: 'Amiri', serif;
+  }
+  label { display: block; font-size: 12px; color: #6b6353; margin: 8px 0 4px; }
+  input, textarea, select {
+    width: 100%; padding: 10px 12px; font-size: 14px;
+    border: 1.5px solid #d8cfb5; border-radius: 8px;
+    font-family: inherit; background: #faf6ec;
+    text-align: right;
+  }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: #0f7a5a; }
+  textarea { min-height: 90px; resize: vertical; line-height: 1.7; }
+  .btn {
+    margin-top: 10px; padding: 10px 14px;
+    border: none; border-radius: 8px;
+    font-size: 14px; font-weight: 700;
+    font-family: inherit; cursor: pointer;
+    background: #0f7a5a; color: #fff;
+  }
+  .btn-block { width: 100%; }
+  .btn-sm { padding: 5px 9px; font-size: 12px; margin: 0; }
+  .btn-danger { background: #b34747; }
+  .btn-warn { background: #c97a3b; }
+  .btn-secondary { background: #ddd; color: #333; }
+
+  .row-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+  .meta-strip {
+    display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0 0;
+  }
+  .badge {
+    font-size: 11px; background: #faf6ec;
+    color: #6b6353; padding: 3px 8px; border-radius: 10px;
+  }
+
+  .juz-block {
+    background: #faf6ec; border: 1px solid #e1d8be;
+    border-radius: 8px; padding: 10px; margin-bottom: 8px;
+  }
+  .juz-block.empty { background: #fafaf6; }
+  .juz-block .t {
+    font-weight: 700; color: #0f7a5a;
+    font-family: 'Amiri', serif; font-size: 15px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 8px;
+  }
+  .juz-block .count {
+    font-size: 11px; color: #6b6353;
+    font-family: Tajawal, sans-serif; font-weight: 400;
+  }
+  .reader-line {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; font-size: 13px;
+    border-top: 1px dashed #e1d8be;
+  }
+  .reader-line:first-of-type { margin-top: 6px; }
+  .reader-line .meta { font-size: 11px; color: #6b6353; margin-right: 6px; }
+  .empty-juz { font-size: 12px; color: #999; padding: 4px 0; }
+
+  .multi-label {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 10px; font-size: 14px; cursor: pointer;
+  }
+  .multi-label input { width: auto; margin: 0; }
+
+  .empty-state {
+    margin: 50px 20px; text-align: center; color: #6b6353;
+  }
+  .empty-state h3 { color: #0f7a5a; font-family: 'Amiri', serif; }
+
+  .toast {
+    position: fixed; bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    background: #2b2418; color: #fff;
+    padding: 10px 18px; border-radius: 24px;
+    font-size: 14px; z-index: 200;
+    opacity: 0; transition: opacity .2s; pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<header>
+  <a href="/">← الرئيسية</a>
+  <h1>لوحة الإدارة</h1>
+  <span style="width:80px"></span>
+</header>
+
+<div class="toptabs">
+  <button class="toptab active" id="tab-active" onclick="switchTab('active')">الختمات النشطة</button>
+  <button class="toptab" id="tab-archived" onclick="switchTab('archived')">الأرشيف</button>
+</div>
+
+<div class="khatma-chips" id="chips"></div>
+
+<div id="content"></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let khatmas = [];
+let currentTab = 'active';
+let selectedId = null;
+const NEW_ID = '__new__';
+
+const $ = id => document.getElementById(id);
+const toast = m => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); };
+const toArabic = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+const escapeHtml = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const escapeAttr = s => escapeHtml(s).replace(/'/g, "\\'");
+
+function formatDate(iso) {
+  try { return new Date(iso).toLocaleString('ar-EG-u-nu-arab', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }); }
+  catch { return iso; }
+}
+function toLocalInput(iso) {
+  try {
+    const d = new Date(iso);
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  } catch { return ''; }
+}
+function localInputToIso(v) {
+  if (!v) return null;
+  const d = new Date(v);
+  return isNaN(d) ? null : d.toISOString();
+}
+
+async function api(path, body) {
+  const r = await fetch(path, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body || {})
+  });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(d.error || ('خطأ ' + r.status));
+  return d;
+}
+
+async function loadAll() {
+  const list = await fetch('/api/khatmas').then(r => r.json());
+  khatmas = await Promise.all(list.map(k => fetch('/api/khatma/' + k.id).then(r => r.json())));
+  if (selectedId && selectedId !== NEW_ID && !khatmas.find(k => k.id === selectedId)) selectedId = null;
+  render();
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  $('tab-active').classList.toggle('active', tab === 'active');
+  $('tab-archived').classList.toggle('active', tab === 'archived');
+  selectedId = null;
+  render();
+}
+
+function visibleKhatmas() {
+  return khatmas.filter(k => currentTab === 'active' ? !k.archived : k.archived);
+}
+
+function render() {
+  renderChips();
+  renderContent();
+}
+
+function renderChips() {
+  const list = visibleKhatmas();
+  const chips = $('chips');
+  let html = '';
+  if (currentTab === 'active') {
+    const isNew = selectedId === NEW_ID;
+    html += `<button class="chip new${isNew ? ' active' : ''}" onclick="selectKhatma('${NEW_ID}')">＋ ختمة جديدة</button>`;
+  }
+  html += list.map(k => `
+    <button class="chip${k.id === selectedId ? ' active' : ''}" onclick="selectKhatma('${k.id}')">
+      ${escapeHtml(k.name)}
+    </button>
+  `).join('');
+  chips.innerHTML = html;
+  chips.style.display = (html ? 'flex' : 'none');
+}
+
+function selectKhatma(id) {
+  selectedId = id;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderContent() {
+  const root = $('content');
+  if (selectedId === NEW_ID) { root.innerHTML = renderCreateForm(); return; }
+  const list = visibleKhatmas();
+  if (!list.length) {
+    if (currentTab === 'archived') {
+      root.innerHTML = '<div class="empty-state"><h3>لا توجد ختمات في الأرشيف</h3></div>';
+    } else {
+      root.innerHTML = '<div class="empty-state"><h3>لا توجد ختمات نشطة</h3><p>اضغط "ختمة جديدة" لإنشاء واحدة.</p></div>';
+    }
+    return;
+  }
+  if (!selectedId || !list.find(k => k.id === selectedId)) {
+    selectedId = list[0].id;
+    renderChips();
+  }
+  const k = list.find(x => x.id === selectedId);
+  root.innerHTML = renderKhatma(k);
+}
+
+function renderCreateForm() {
+  return `
+    <div class="card">
+      <h2>إنشاء ختمة جديدة</h2>
+      <label>اختر مناسبة (اختياري)</label>
+      <select id="new-preset" onchange="applyPreset()">
+        <option value="">— اختر مناسبة لتعبئة الاسم تلقائياً —</option>
+        <optgroup label="شهر رمضان">
+          <option>ختمة رمضان المبارك</option>
+          <option>ختمة العشر الأواخر من رمضان</option>
+          <option>ختمة ليلة القدر</option>
+        </optgroup>
+        <optgroup label="الأشهر الفاضلة">
+          <option>ختمة شهر رجب</option>
+          <option>ختمة شهر شعبان</option>
+          <option>ختمة ليلة النصف من شعبان</option>
+          <option>ختمة شهر محرّم</option>
+          <option>ختمة شهر ذي الحجة</option>
+        </optgroup>
+        <optgroup label="المناسبات">
+          <option>ختمة يوم عرفة</option>
+          <option>ختمة العشر الأوائل من ذي الحجة</option>
+          <option>ختمة الحج</option>
+          <option>ختمة عاشوراء</option>
+          <option>ختمة المولد النبوي الشريف</option>
+          <option>ختمة الإسراء والمعراج</option>
+          <option>ختمة الهجرة النبوية</option>
+        </optgroup>
+        <optgroup label="نوايا خاصة">
+          <option>ختمة على روح المرحوم/ـة</option>
+          <option>ختمة على روح الوالد</option>
+          <option>ختمة على روح الوالدة</option>
+          <option>ختمة شفاء مريض</option>
+          <option>ختمة قضاء حاجة</option>
+          <option>ختمة دعاء وتضرّع</option>
+        </optgroup>
+        <optgroup label="عام">
+          <option>ختمة جماعية</option>
+          <option>ختمة العائلة</option>
+          <option>ختمة أسبوعية</option>
+          <option>ختمة شهرية</option>
+        </optgroup>
+      </select>
+      <label>اسم الختمة</label>
+      <input id="new-name" placeholder="مثال: ختمة رمضان ١٤٤٧" />
+      <label>المقدمة</label>
+      <textarea id="new-intro" placeholder="بسم الله الرحمن الرحيم…"></textarea>
+      <label>موعد إتمام الختمة — التاريخ والوقت (اختياري)</label>
+      <input id="new-deadline" type="datetime-local" />
+      <label class="multi-label">
+        <input id="new-multi" type="checkbox" checked />
+        السماح بأكثر من قارئ لنفس الجزء
+      </label>
+      <button class="btn btn-block" onclick="createKhatma()">إنشاء الختمة</button>
+    </div>
+  `;
+}
+
+function renderKhatma(k) {
+  const readCount = k.juz.filter(j => j.readers.some(r => r.read)).length;
+  const readersTotal = k.juz.reduce((s, j) => s + j.readers.length, 0);
+  return `
+    <div class="card">
+      <h2>تعديل بيانات الختمة</h2>
+      <div class="meta-strip">
+        ${k.archived ? '<span class="badge" style="background:#ddd">مؤرشفة</span>' : ''}
+        <span class="badge">${toArabic(readCount)} / ٣٠ مكتمل</span>
+        <span class="badge">${toArabic(readersTotal)} قارئ</span>
+        ${k.deadline ? `<span class="badge">⏳ ${formatDate(k.deadline)}</span>` : ''}
+      </div>
+      <label>الاسم</label>
+      <input id="name-${k.id}" value="${escapeHtml(k.name)}" />
+      <label>المقدمة</label>
+      <textarea id="intro-${k.id}">${escapeHtml(k.intro)}</textarea>
+      <label>الموعد (التاريخ والوقت)</label>
+      <input id="deadline-${k.id}" type="datetime-local" value="${k.deadline ? toLocalInput(k.deadline) : ''}" />
+      <label class="multi-label">
+        <input id="multi-${k.id}" type="checkbox" ${k.allowMultipleReaders !== false ? 'checked' : ''} />
+        السماح بأكثر من قارئ لنفس الجزء
+      </label>
+      <button class="btn btn-block" onclick="updateKhatma('${k.id}')">حفظ التعديلات</button>
+      <div class="row-btns">
+        ${k.archived
+          ? `<button class="btn btn-sm btn-secondary" onclick="archiveKhatma('${k.id}', false)">إلغاء الأرشفة</button>`
+          : `<button class="btn btn-sm btn-warn" onclick="archiveKhatma('${k.id}', true)">أرشفة</button>`
+        }
+        <button class="btn btn-sm btn-danger" onclick="deleteKhatma('${k.id}', '${escapeAttr(k.name)}')">حذف نهائي</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>الأجزاء والقرّاء (٣٠ جزءاً)</h2>
+      ${k.juz.map(j => renderJuzBlock(k.id, j)).join('')}
+    </div>
+  `;
+}
+
+function renderJuzBlock(khatmaId, j) {
+  const hasReaders = j.readers.length > 0;
+  return `
+    <div class="juz-block${hasReaders ? '' : ' empty'}">
+      <div class="t">
+        <span>
+          الجزء ${toArabic(j.number)}
+          <span class="count">${hasReaders ? '(' + toArabic(j.readers.length) + ' قارئ)' : ''}</span>
+        </span>
+        ${hasReaders ? `<button class="btn btn-sm btn-danger" onclick="resetJuz('${khatmaId}', ${j.number})">إفراغ</button>` : ''}
+      </div>
+      ${hasReaders
+        ? j.readers.map(r => `
+            <div class="reader-line">
+              <span>${escapeHtml(r.name)} <span class="meta">${r.read ? '✓ تمت القراءة' : 'قيد القراءة'}</span></span>
+              <button class="btn btn-sm btn-danger" onclick="removeReader('${khatmaId}', ${j.number}, '${escapeAttr(r.name)}')">حذف</button>
+            </div>
+          `).join('')
+        : '<div class="empty-juz">— لا يوجد قارئ —</div>'
+      }
+    </div>
+  `;
+}
+
+function applyPreset() {
+  const v = $('new-preset').value;
+  if (v) $('new-name').value = v;
+}
+
+async function createKhatma() {
+  const name = $('new-name').value.trim();
+  if (!name) { toast('اسم الختمة مطلوب'); return; }
+  const intro = $('new-intro').value;
+  const deadline = localInputToIso($('new-deadline').value);
+  const allowMultipleReaders = $('new-multi').checked;
+  try {
+    const res = await api('/api/admin/khatma/create', { name, intro, deadline, allowMultipleReaders });
+    toast('تم إنشاء الختمة');
+    selectedId = res.id;
+    await loadAll();
+  } catch (e) { toast(e.message); }
+}
+
+async function updateKhatma(id) {
+  try {
+    await api('/api/admin/khatma/update', {
+      id,
+      name: $('name-' + id).value,
+      intro: $('intro-' + id).value,
+      deadline: localInputToIso($('deadline-' + id).value),
+      allowMultipleReaders: $('multi-' + id).checked
+    });
+    toast('تم الحفظ');
+    await loadAll();
+  } catch (e) { toast(e.message); }
+}
+
+async function archiveKhatma(id, archived) {
+  try {
+    await api('/api/admin/khatma/archive', { id, archived });
+    toast(archived ? 'تمت الأرشفة' : 'تم الاستعادة');
+    selectedId = null;
+    if (archived) currentTab = 'active';
+    await loadAll();
+  } catch (e) { toast(e.message); }
+}
+
+async function deleteKhatma(id, name) {
+  if (!confirm(`حذف ختمة "${name}" نهائياً؟ لا يمكن التراجع.`)) return;
+  try {
+    await api('/api/admin/khatma/delete', { id });
+    toast('تم الحذف');
+    selectedId = null;
+    await loadAll();
+  } catch (e) { toast(e.message); }
+}
+
+async function resetJuz(khatmaId, number) {
+  if (!confirm('إفراغ الجزء ' + toArabic(number) + ' من جميع القرّاء؟')) return;
+  try { await api('/api/admin/reset-juz', { khatmaId, number }); toast('تم'); await loadAll(); }
+  catch (e) { toast(e.message); }
+}
+
+async function removeReader(khatmaId, number, name) {
+  if (!confirm('حذف "' + name + '" من الجزء ' + toArabic(number) + '؟')) return;
+  try { await api('/api/admin/remove-reader', { khatmaId, number, name }); toast('تم الحذف'); await loadAll(); }
+  catch (e) { toast(e.message); }
+}
+
+loadAll();
+</script>
+</body>
+</html>

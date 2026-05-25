@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#0f7a5a" />
+<title>ختمة القرآن الكريم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: 'Tajawal', system-ui, sans-serif;
+    background: linear-gradient(160deg, #f4ebd5 0%, #e9dcb8 100%);
+    color: #2b2418;
+    min-height: 100vh;
+  }
+  header {
+    background: linear-gradient(135deg, #0f7a5a, #0a5a42);
+    color: #fff;
+    padding: 14px 16px 12px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .header-share {
+    position: absolute;
+    top: 12px; left: 12px;
+    width: 38px; height: 38px;
+    background: rgba(255,255,255,.18);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; text-decoration: none;
+    transition: background .15s;
+  }
+  .header-share:active { background: rgba(255,255,255,.32); }
+  header h1 {
+    margin: 0;
+    font-family: 'Amiri', serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  header .khatma-name {
+    margin-top: 2px; font-size: 14px; opacity: 0.95;
+  }
+  .tabs-wrap {
+    background: #0a5a42;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    padding: 6px 0 8px;
+  }
+  .tabs-label {
+    font-size: 11px; color: rgba(255,255,255,.7);
+    padding: 0 14px 4px; text-align: right;
+  }
+  .tabs {
+    display: flex; gap: 6px; overflow-x: auto;
+    padding: 0 12px 2px;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: 0 0 auto;
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 18px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .tab.active { background: #ffd76b; color: #2b2418; font-weight: 700; }
+  .tab .chip-count {
+    font-size: 10px;
+    background: rgba(0,0,0,.18);
+    padding: 1px 6px; border-radius: 8px;
+  }
+  .tab.active .chip-count { background: rgba(0,0,0,.12); }
+  .countdown {
+    margin: 10px 16px 0;
+    background: #fff7e0;
+    border-radius: 10px;
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 13px;
+    color: #8a6a1a;
+    border-right: 3px solid #e0b84a;
+  }
+  .countdown.urgent { background: #ffd9d4; color: #9a3422; border-right-color: #d04a30; }
+  .countdown.done { background: #d4f1dd; color: #2e8b57; border-right-color: #2e8b57; }
+  .progress-wrap {
+    margin: 10px 16px 0;
+    background: rgba(0,0,0,.08);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #0f7a5a, #2e8b57);
+    transition: width .4s ease;
+  }
+  .progress-text { margin: 4px 16px 0; font-size: 12px; color: #6b6353; text-align: center; }
+  .intro {
+    margin: 14px 16px;
+    padding: 14px;
+    background: #fff;
+    border-radius: 14px;
+    border-right: 4px solid #0f7a5a;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+  }
+  .actions { display: flex; gap: 8px; margin: 0 16px 12px; }
+  .action-btn {
+    flex: 1;
+    background: #fff;
+    color: #0f7a5a;
+    border: 1.5px solid #0f7a5a;
+    padding: 9px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .action-btn.whatsapp { background: #25d366; color: #fff; border-color: #25d366; }
+  .leaderboard {
+    margin: 0 16px 12px; padding: 12px 14px;
+    background: #fff; border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    border-right: 4px solid #d4a017;
+  }
+  .leaderboard h3 {
+    margin: 0 0 10px; font-family: 'Amiri', serif;
+    font-size: 16px; color: #b8860b;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .lb-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 0; font-size: 13px;
+    border-top: 1px dashed #f0e6d0;
+  }
+  .lb-row:first-of-type { border-top: none; }
+  .lb-rank {
+    width: 26px; height: 26px;
+    border-radius: 50%; background: #f4ebd5;
+    color: #6b6353; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex: 0 0 auto;
+  }
+  .lb-row.first .lb-rank {
+    background: linear-gradient(135deg, #ffd76b, #d4a017);
+    color: #fff;
+  }
+  .lb-name { flex: 1; font-weight: 600; color: #2b2418; word-break: break-word; }
+  .lb-meta { font-size: 11px; color: #6b6353; }
+  .lb-crown { font-size: 16px; }
+  .stats { display: flex; gap: 8px; margin: 0 16px 12px; }
+  .stat {
+    flex: 1; background: #fff; border-radius: 12px;
+    padding: 10px; text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+  }
+  .stat .num { font-size: 20px; font-weight: 700; color: #0f7a5a; }
+  .stat .lbl { font-size: 12px; color: #6b6353; margin-top: 2px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0 16px 80px;
+  }
+  @media (min-width: 480px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 720px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+  .juz {
+    background: #fff;
+    border-radius: 14px;
+    padding: 12px 10px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,.07);
+    cursor: pointer;
+    transition: transform .15s ease;
+    border: 2px solid transparent;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .juz:active { transform: scale(0.97); }
+  .juz .num {
+    font-family: 'Amiri', serif;
+    font-size: 22px; font-weight: 700;
+    color: #0f7a5a;
+  }
+  .juz .label { font-size: 13px; color: #6b6353; margin-top: 2px; }
+  .juz .who {
+    font-size: 11px; color: #4a4133; margin-top: 6px;
+    word-break: break-word; line-height: 1.4;
+    max-height: 50px; overflow: hidden;
+  }
+  .juz.reserved { background: #fff7e0; border-color: #e0b84a; }
+  .juz.read { background: #d4f1dd; border-color: #2e8b57; }
+  .juz.mine { box-shadow: 0 0 0 2px #0f7a5a, 0 2px 6px rgba(0,0,0,.07); }
+  .juz.read::after {
+    content: '✓';
+    position: absolute; top: 4px; left: 6px;
+    font-size: 16px; color: #2e8b57; font-weight: 700;
+  }
+  .empty-state {
+    margin: 60px 16px;
+    text-align: center;
+    color: #6b6353;
+  }
+  .empty-state h3 { font-family: 'Amiri', serif; color: #0f7a5a; }
+  .modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.5);
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 100;
+  }
+  .modal-bg.show { display: flex; }
+  .modal {
+    background: #fff; width: 100%; max-width: 480px;
+    border-radius: 18px 18px 0 0;
+    padding: 18px 16px 24px;
+    animation: slideUp .25s ease;
+    max-height: 85vh; overflow-y: auto;
+  }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .modal h2 {
+    margin: 0 0 10px;
+    font-family: 'Amiri', serif;
+    font-size: 22px; color: #0f7a5a; text-align: center;
+  }
+  .readers-list {
+    background: #faf6ec; border-radius: 10px;
+    padding: 8px; margin-bottom: 14px;
+    max-height: 200px; overflow-y: auto;
+  }
+  .reader-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 8px; font-size: 14px;
+    border-bottom: 1px solid #efe7d0;
+  }
+  .reader-row:last-child { border-bottom: none; }
+  .reader-row.me { background: #e6f4ee; border-radius: 6px; font-weight: 700; }
+  .reader-row .status {
+    font-size: 12px; padding: 2px 8px; border-radius: 10px;
+  }
+  .status-read { background: #d4f1dd; color: #2e8b57; }
+  .status-pending { background: #fff7e0; color: #8a6a1a; }
+  .empty-list { text-align: center; color: #999; font-size: 13px; padding: 10px; }
+  .modal input {
+    width: 100%; padding: 12px; font-size: 16px;
+    border: 1.5px solid #d8cfb5; border-radius: 10px;
+    font-family: inherit; background: #faf6ec;
+    text-align: right; margin-top: 6px;
+  }
+  .modal input:focus { outline: none; border-color: #0f7a5a; }
+  .section-label { font-size: 13px; color: #6b6353; margin-top: 8px; }
+  .btns { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .btn {
+    flex: 1; min-width: 100px;
+    padding: 12px; border: none; border-radius: 10px;
+    font-size: 14px; font-weight: 700;
+    font-family: inherit; cursor: pointer;
+  }
+  .btn-primary { background: #0f7a5a; color: #fff; }
+  .btn-success { background: #2e8b57; color: #fff; }
+  .btn-warn { background: #c97a3b; color: #fff; }
+  .btn-danger { background: #b34747; color: #fff; }
+  .btn-secondary { background: #eee; color: #333; }
+  .toast {
+    position: fixed; bottom: 90px; left: 50%;
+    transform: translateX(-50%);
+    background: #2b2418; color: #fff;
+    padding: 10px 18px; border-radius: 24px;
+    font-size: 14px; z-index: 200;
+    opacity: 0; transition: opacity .2s;
+    pointer-events: none;
+    max-width: 90%; text-align: center;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<header style="position:relative">
+  <a class="header-share" id="wa-share" target="_blank" rel="noopener" title="مشاركة عبر واتساب">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26L3.45 16.626l1.404-2.434z"/></svg>
+  </a>
+  <h1>﷽</h1>
+  <div class="khatma-name" id="khatma-name">جارٍ التحميل…</div>
+</header>
+
+<div class="tabs-wrap" id="tabs-wrap" style="display:none">
+  <div class="tabs-label">الختمات النشطة — اختر واحدة</div>
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<div id="countdown" class="countdown" style="display:none"></div>
+
+<div class="progress-wrap"><div class="progress-bar" id="pbar" style="width:0%"></div></div>
+<div class="progress-text" id="ptext">٠ من ٣٠ جزءاً</div>
+
+<div id="intro" class="intro">جارٍ التحميل…</div>
+
+<div id="leaderboard" class="leaderboard" style="display:none">
+  <h3>🏆 أوائل من أتمّوا القراءة</h3>
+  <div id="lb-list"></div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="num" id="stat-readers">0</div><div class="lbl">قارئ مسجَّل</div></div>
+  <div class="stat"><div class="num" id="stat-reserved">0</div><div class="lbl">قيد القراءة</div></div>
+  <div class="stat"><div class="num" id="stat-read">0</div><div class="lbl">أجزاء مكتملة</div></div>
+</div>
+
+<div id="grid" class="grid"></div>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h2 id="modal-title">الجزء</h2>
+    <div id="readers-list" class="readers-list"></div>
+    <div id="form-area"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const NAME_KEY = 'quran_user_name';
+const MINE_KEY = 'quran_my_reservations';
+const LAST_KHATMA_KEY = 'quran_last_khatma';
+let khatmas = [];
+let activeKhatma = null;
+let activeKhatmaId = null;
+let activeJuz = null;
+let myReservations = loadMine();
+
+const $ = id => document.getElementById(id);
+const toast = (msg) => {
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+};
+const toArabic = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function loadMine() {
+  try { return JSON.parse(localStorage.getItem(MINE_KEY) || '[]'); } catch { return []; }
+}
+function saveMine() { localStorage.setItem(MINE_KEY, JSON.stringify(myReservations)); }
+function addMine(khatmaId, number, name, token) {
+  myReservations = myReservations.filter(m => !(m.khatmaId === khatmaId && m.number === number && m.name === name));
+  myReservations.push({ khatmaId, number, name, token });
+  saveMine();
+}
+function removeMine(khatmaId, number, name) {
+  myReservations = myReservations.filter(m => !(m.khatmaId === khatmaId && m.number === number && m.name === name));
+  saveMine();
+}
+function myEntryForJuz(khatmaId, number) {
+  return myReservations.find(m => m.khatmaId === khatmaId && m.number === number) || null;
+}
+
+function getUrlKhatmaId() {
+  const p = new URLSearchParams(location.search);
+  return p.get('k');
+}
+function setUrlKhatmaId(id) {
+  const u = new URL(location.href);
+  u.searchParams.set('k', id);
+  history.replaceState(null, '', u.toString());
+}
+
+async function loadKhatmas() {
+  const r = await fetch('/api/khatmas');
+  const list = await r.json();
+  khatmas = list.filter(k => !k.archived);
+  renderTabs();
+  if (khatmas.length === 0) {
+    activeKhatma = null;
+    renderEmpty();
+    return;
+  }
+  const requested = getUrlKhatmaId();
+  const lastVisited = localStorage.getItem(LAST_KHATMA_KEY);
+  const chosen = khatmas.find(k => k.id === requested)
+    || khatmas.find(k => k.id === lastVisited)
+    || khatmas[0];
+  activeKhatmaId = chosen.id;
+  localStorage.setItem(LAST_KHATMA_KEY, activeKhatmaId);
+  setUrlKhatmaId(activeKhatmaId);
+  renderTabs();
+  await loadActive();
+}
+
+async function loadActive() {
+  if (!activeKhatmaId) return;
+  try {
+    const r = await fetch('/api/khatma/' + activeKhatmaId);
+    if (!r.ok) throw new Error();
+    activeKhatma = await r.json();
+    renderKhatma();
+  } catch (e) { /* silent */ }
+}
+
+async function refreshChipCounts() {
+  try {
+    const list = await fetch('/api/khatmas').then(r => r.json());
+    const active = list.filter(k => !k.archived);
+    // Merge counts into existing khatmas without changing order/selection
+    active.forEach(updated => {
+      const existing = khatmas.find(k => k.id === updated.id);
+      if (existing) Object.assign(existing, updated);
+    });
+    renderTabs();
+  } catch (e) { /* silent */ }
+}
+
+function renderTabs() {
+  const wrap = $('tabs-wrap');
+  const t = $('tabs');
+  if (khatmas.length === 0) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  t.innerHTML = khatmas.map(k => {
+    const avail = k.availableCount != null ? k.availableCount : 30;
+    return `<button class="tab${k.id === activeKhatmaId ? ' active' : ''}" onclick="switchKhatma('${k.id}')">
+      ${escapeHtml(k.name)}
+      <span class="chip-count" title="أجزاء متاحة">${toArabic(avail)} متاح</span>
+    </button>`;
+  }).join('');
+}
+
+async function switchKhatma(id) {
+  activeKhatmaId = id;
+  localStorage.setItem(LAST_KHATMA_KEY, id);
+  setUrlKhatmaId(id);
+  renderTabs();
+  await loadActive();
+}
+
+function renderEmpty() {
+  $('khatma-name').textContent = '';
+  $('intro').innerHTML = '<div class="empty-state"><h3>لا توجد ختمات نشطة</h3><p>توجّه إلى <a href="/admin">لوحة الإدارة</a> لإنشاء ختمة جديدة.</p></div>';
+  $('grid').innerHTML = '';
+  $('countdown').style.display = 'none';
+  $('pbar').style.width = '0%';
+  $('ptext').textContent = '';
+  ['stat-readers','stat-reserved','stat-read'].forEach(id => $(id).textContent = '٠');
+}
+
+function renderKhatma() {
+  const k = activeKhatma;
+  $('khatma-name').textContent = k.name;
+  $('intro').textContent = k.intro || '';
+  renderCountdown(k.deadline);
+  renderShare(k);
+  renderGrid(k);
+  renderLeaderboard(k);
+}
+
+function renderLeaderboard(k) {
+  const events = [];
+  k.juz.forEach(j => {
+    j.readers.forEach(r => {
+      if (r.read && r.readAt) events.push({ name: r.name, juz: j.number, at: r.readAt });
+    });
+  });
+  events.sort((a, b) => new Date(a.at) - new Date(b.at));
+  const top = events.slice(0, 10);
+  const wrap = $('leaderboard');
+  if (top.length === 0) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  $('lb-list').innerHTML = top.map((e, i) => `
+    <div class="lb-row${i === 0 ? ' first' : ''}">
+      <div class="lb-rank">${i === 0 ? '👑' : toArabic(i + 1)}</div>
+      <div class="lb-name">${escapeHtml(e.name)}</div>
+      <div class="lb-meta">الجزء ${toArabic(e.juz)} · ${formatShortDate(e.at)}</div>
+    </div>
+  `).join('');
+}
+
+function formatShortDate(iso) {
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString('ar-EG-u-nu-arab', { month: 'short', day: 'numeric' });
+  } catch { return ''; }
+}
+
+let countdownTimer = null;
+function renderCountdown(deadline) {
+  const c = $('countdown');
+  if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+  if (!deadline) { c.style.display = 'none'; return; }
+  c.style.display = 'block';
+  const tick = () => {
+    const now = new Date();
+    const dl = new Date(deadline);
+    const diff = dl - now;
+    c.classList.remove('urgent', 'done');
+    if (diff <= 0) {
+      c.classList.add('done');
+      c.innerHTML = `<div>✓ انتهى الموعد المحدد</div><div style="font-size:11px;margin-top:2px;opacity:.8">${formatDate(deadline)}</div>`;
+      if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+      return;
+    }
+    const totalSec = Math.floor(diff / 1000);
+    const days = Math.floor(totalSec / 86400);
+    const hours = Math.floor((totalSec % 86400) / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    const secs = totalSec % 60;
+    if (days <= 3) c.classList.add('urgent');
+    c.innerHTML = `
+      <div style="font-weight:700">⏳ تبقّى لإتمام الختمة</div>
+      <div style="display:flex;gap:6px;justify-content:center;margin-top:6px;flex-wrap:wrap">
+        ${cdBox(days, 'يوم')}${cdBox(hours, 'ساعة')}${cdBox(mins, 'دقيقة')}${cdBox(secs, 'ثانية')}
+      </div>
+      <div style="font-size:11px;margin-top:6px;opacity:.85">${formatDate(deadline)}</div>
+    `;
+  };
+  tick();
+  countdownTimer = setInterval(tick, 1000);
+}
+
+function cdBox(n, label) {
+  return `<div style="background:rgba(255,255,255,.55);border-radius:8px;padding:4px 8px;min-width:48px">
+    <div style="font-weight:700;font-size:16px;font-family:Amiri,serif">${toArabic(String(n).padStart(2,'0'))}</div>
+    <div style="font-size:10px;opacity:.8">${label}</div>
+  </div>`;
+}
+
+function formatDate(iso) {
+  try {
+    const d = new Date(iso);
+    return d.toLocaleString('ar-EG-u-nu-arab', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  } catch { return iso; }
+}
+
+function renderShare(k) {
+  const url = location.origin + '/?k=' + k.id;
+  const text = `انضم إلى "${k.name}" — ختمة جماعية للقرآن الكريم\n${url}`;
+  $('wa-share').href = 'https://wa.me/?text=' + encodeURIComponent(text);
+}
+
+function renderGrid(k) {
+  const grid = $('grid');
+  grid.innerHTML = '';
+  let totalReaders = 0, reservedCount = 0, readCount = 0;
+  k.juz.forEach(j => {
+    const hasReaders = j.readers.length > 0;
+    const someRead = j.readers.some(r => r.read);
+    const allRead = hasReaders && j.readers.every(r => r.read);
+    totalReaders += j.readers.length;
+    if (hasReaders && !someRead) reservedCount++;
+    if (someRead) readCount++;
+
+    const mine = myEntryForJuz(k.id, j.number);
+    const cssClass = (someRead ? 'read' : (hasReaders ? 'reserved' : '')) + (mine ? ' mine' : '');
+    const namesText = hasReaders ? j.readers.map(r => (r.read ? '✓ ' : '') + r.name).join('، ') : '';
+    const label = someRead ? (allRead ? 'تمت القراءة' : 'تمت القراءة جزئياً') : (hasReaders ? 'محجوز' : 'متاح');
+
+    const div = document.createElement('div');
+    div.className = 'juz ' + cssClass;
+    div.innerHTML = `
+      <div>
+        <div class="num">الجزء ${toArabic(j.number)}</div>
+        <div class="label">${label}</div>
+      </div>
+      ${namesText ? `<div class="who">${escapeHtml(namesText)}</div>` : ''}
+    `;
+    div.onclick = () => openModal(j);
+    grid.appendChild(div);
+  });
+  $('stat-readers').textContent = toArabic(totalReaders);
+  $('stat-reserved').textContent = toArabic(reservedCount);
+  $('stat-read').textContent = toArabic(readCount);
+  const pct = Math.round((readCount / 30) * 100);
+  $('pbar').style.width = pct + '%';
+  $('ptext').textContent = `${toArabic(readCount)} من ٣٠ جزءاً (${toArabic(pct)}٪)`;
+}
+
+function openModal(j) {
+  activeJuz = j;
+  $('modal-title').textContent = 'الجزء ' + toArabic(j.number);
+
+  const list = $('readers-list');
+  if (j.readers.length === 0) {
+    list.innerHTML = '<div class="empty-list">لا يوجد قارئ مسجَّل بعد</div>';
+  } else {
+    const mine = myEntryForJuz(activeKhatma.id, j.number);
+    list.innerHTML = j.readers.map(r => {
+      const isMe = mine && mine.name === r.name;
+      const status = r.read
+        ? '<span class="status status-read">تمت القراءة ✓</span>'
+        : '<span class="status status-pending">قيد القراءة</span>';
+      return `<div class="reader-row${isMe ? ' me' : ''}"><span>${escapeHtml(r.name)}${isMe ? ' (أنت)' : ''}</span>${status}</div>`;
+    }).join('');
+  }
+
+  const mine = myEntryForJuz(activeKhatma.id, j.number);
+  const form = $('form-area');
+  const savedName = localStorage.getItem(NAME_KEY) || '';
+
+  if (mine) {
+    const myReader = j.readers.find(r => r.name === mine.name);
+    if (!myReader) { removeMine(activeKhatma.id, j.number, mine.name); renderJoinForm(savedName); $('modal').classList.add('show'); return; }
+    form.innerHTML = `
+      <div class="section-label">حجزك في هذا الجزء (${escapeHtml(mine.name)})</div>
+      <div class="btns">
+        ${myReader.read
+          ? `<button class="btn btn-warn" onclick="doUnmark()">إلغاء علامة القراءة</button>`
+          : `<button class="btn btn-success" onclick="doMarkRead()">تم القراءة ✓</button>`}
+        <button class="btn btn-danger" onclick="doRelease()">إلغاء حجزي</button>
+      </div>
+      <div class="btns"><button class="btn btn-secondary" onclick="closeModal()">إغلاق</button></div>
+    `;
+  } else {
+    renderJoinForm(savedName);
+  }
+  $('modal').classList.add('show');
+}
+
+function renderJoinForm(savedName) {
+  $('form-area').innerHTML = `
+    <div class="section-label">انضم لقراءة هذا الجزء</div>
+    <input id="modal-name" type="text" placeholder="اكتب اسمك هنا" autocomplete="name" value="${escapeHtml(savedName)}" />
+    <div class="btns">
+      <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
+      <button class="btn btn-primary" onclick="doReserve()">احجز</button>
+    </div>
+  `;
+  setTimeout(() => { const el = $('modal-name'); if (el) el.focus(); }, 100);
+}
+
+function closeModal() {
+  $('modal').classList.remove('show');
+  activeJuz = null;
+}
+$('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+
+async function apiCall(path, body) {
+  const r = await fetch(path, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body)
+  });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(d.error || ('خطأ ' + r.status));
+  return d;
+}
+
+async function doReserve() {
+  const name = $('modal-name').value.trim();
+  if (!name) { toast('اكتب اسمك أولاً'); return; }
+  localStorage.setItem(NAME_KEY, name);
+  try {
+    const res = await apiCall('/api/reserve', { khatmaId: activeKhatma.id, number: activeJuz.number, name });
+    addMine(activeKhatma.id, activeJuz.number, name, res.token);
+    toast('تم الحجز بنجاح');
+    closeModal();
+    await loadActive();
+    refreshChipCounts();
+  } catch (e) { toast(e.message); }
+}
+async function doMarkRead() {
+  const m = myEntryForJuz(activeKhatma.id, activeJuz.number);
+  if (!m) return;
+  try {
+    await apiCall('/api/mark-read', { khatmaId: activeKhatma.id, number: activeJuz.number, name: m.name, token: m.token });
+    toast('بارك الله فيك ✓');
+    closeModal();
+    await loadActive();
+    refreshChipCounts();
+  } catch (e) { toast(e.message); }
+}
+async function doUnmark() {
+  const m = myEntryForJuz(activeKhatma.id, activeJuz.number);
+  if (!m) return;
+  try {
+    await apiCall('/api/unmark-read', { khatmaId: activeKhatma.id, number: activeJuz.number, name: m.name, token: m.token });
+    toast('تم إلغاء علامة القراءة');
+    closeModal();
+    await loadActive();
+    refreshChipCounts();
+  } catch (e) { toast(e.message); }
+}
+async function doRelease() {
+  if (!confirm('هل تريد إلغاء حجزك لهذا الجزء؟')) return;
+  const m = myEntryForJuz(activeKhatma.id, activeJuz.number);
+  if (!m) return;
+  try {
+    await apiCall('/api/release', { khatmaId: activeKhatma.id, number: activeJuz.number, name: m.name, token: m.token });
+    removeMine(activeKhatma.id, activeJuz.number, m.name);
+    toast('تم إلغاء الحجز');
+    closeModal();
+    await loadActive();
+    refreshChipCounts();
+  } catch (e) { toast(e.message); }
+}
+
+loadKhatmas();
+setInterval(() => {
+  if (!$('modal').classList.contains('show')) {
+    loadActive();
+    refreshChipCounts();
+  }
+}, 30000);
+</script>
+</body>
+</html>
